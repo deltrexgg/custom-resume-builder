@@ -1,0 +1,2147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Build Your Resume</title>
+
+    <link rel="stylesheet" href="/static/style.css?v=1">
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- Main content -->
+    <main class="main">
+
+        <header class="header">
+            <h1>Create Job Specific Resume</h1>
+            <p>For Technical Roles</p>
+        </header>
+
+        <!-- Job description -->
+        <section class="job-section">
+
+            <textarea
+                id="jobDescription"
+                placeholder="Paste or type the job description here..."
+            ></textarea>
+
+        </section>
+
+        <!-- AI configuration -->
+        <section class="ai-config">
+
+            <div class="field">
+                <label for="aiService">AI Service</label>
+
+                <select id="aiService">
+                    <option value="">Loading...</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="aiModel">Model</label>
+
+                <select id="aiModel" disabled>
+                    <option value="">Select model</option>
+                </select>
+            </div>
+
+        </section>
+
+        <!-- Output format -->
+        <section class="format-section">
+
+            <label>Output Format</label>
+
+            <div class="format-options">
+
+                <label class="format-option">
+                    <input
+                        type="radio"
+                        name="format"
+                        value="pdf"
+                        checked
+                    >
+                    <span>PDF</span>
+                </label>
+
+                <label class="format-option">
+                    <input
+                        type="radio"
+                        name="format"
+                        value="docx"
+                    >
+                    <span>DOCX</span>
+                </label>
+
+            </div>
+
+        </section>
+
+        <button
+            id="generateButton"
+            class="generate-button"
+        >
+            Generate Resume
+        </button>
+
+        <div id="status" class="status"></div>
+
+    </main>
+
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+    <a href="https://github.com/YOUR_USERNAME/YOUR_REPO"
+   target="_blank"
+   rel="noopener noreferrer"
+   style="display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:7px 12px;border-radius:8px;background:#24292f;color:white;font-size:14px;font-weight:500;line-height:18px;text-decoration:none;">
+    <span style="display:inline-flex;align-items:center;">Github</span>
+    <img src="/static/github.png"
+         alt="GitHub"
+         style="display:block;width:18px;height:18px;object-fit:contain;filter:invert(1);">
+</a>
+        <!-- API token -->
+        <section class="card">
+
+            
+            <h2>AI API Token</h2>
+
+            <p class="description">
+                Enter your API token. It will be encrypted by the server
+                before being saved locally. Its not stored in our side.
+            </p>
+
+            <div class="token-row">
+
+                <input
+                    type="password"
+                    id="apiKey"
+                    placeholder="Enter API key"
+                    autocomplete="off"
+                >
+
+                <button id="saveTokenButton">
+                    Save
+                </button>
+
+            </div>
+
+            <div id="tokenStatus" class="small-status"></div>
+
+        </section>
+
+
+        <!-- Personal data -->
+        <section class="personal-card">
+
+            <div class="personal-header">
+
+                <div>
+                    <h2>Personal Data</h2>
+
+                    <p>
+                        Your information is stored locally
+                        in your browser.
+                    </p>
+                </div>
+
+                <button
+                    id="editPersonalButton"
+                    class="secondary-button"
+                >
+                    Edit
+                </button>
+
+            </div>
+
+
+            <div id="personalDataContainer">
+
+                <!-- Filled by JavaScript -->
+
+            </div>
+
+        </section>
+
+    </aside>
+
+</div>
+
+<div id="personalModal" class="modal hidden">
+
+    <div class="modal-content">
+
+        <div class="modal-header">
+
+            <div>
+                <h2>Edit Personal Data</h2>
+                <p class="modal-subtitle">
+                    Update your resume information. Changes are saved locally.
+                </p>
+            </div>
+
+            <button
+                id="closeModalButton"
+                class="close-button"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <!-- PROFILE -->
+
+        <section class="editor-section">
+
+            <div class="editor-section-header">
+                <div>
+                    <h3>Profile</h3>
+                    <p>Your name and professional designation.</p>
+                </div>
+            </div>
+
+            <div class="form-grid">
+
+                <div class="form-field">
+                    <label>Name</label>
+                    <input id="profileName">
+                </div>
+
+                <div class="form-field">
+                    <label>Designation</label>
+                    <input id="profileDesignation">
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CONTACT -->
+
+        <section class="editor-section">
+
+            <div class="editor-section-header">
+                <div>
+                    <h3>Contact</h3>
+                    <p>Your contact and online profile information.</p>
+                </div>
+            </div>
+
+            <div class="form-grid">
+
+                <div class="form-field">
+                    <label>Phone</label>
+                    <input id="contactPhone">
+                </div>
+
+                <div class="form-field">
+                    <label>Email</label>
+                    <input id="contactEmail">
+                </div>
+
+                <div class="form-field">
+                    <label>GitHub</label>
+                    <input id="contactGithub">
+                </div>
+
+                <div class="form-field">
+                    <label>LinkedIn</label>
+                    <input id="contactLinkedin">
+                </div>
+
+                <div class="form-field">
+                    <label>Website</label>
+                    <input id="contactWebsite">
+                </div>
+
+                <div class="form-field">
+                    <label>Location</label>
+                    <input id="contactLocation">
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SUMMARY -->
+
+        <section class="editor-section">
+
+            <div class="editor-section-header">
+                <div>
+                    <h3>Professional Summary</h3>
+                </div>
+            </div>
+
+            <div class="form-field">
+
+                <textarea
+                    id="summary"
+                    class="large-textarea"
+                ></textarea>
+
+            </div>
+
+        </section>
+
+
+        <!-- SKILLS -->
+
+        <section class="editor-section">
+
+            <div class="editor-section-header">
+                <div>
+                    <h3>Skills</h3>
+                    <p>Separate skills with commas.</p>
+                </div>
+            </div>
+
+            <div class="form-grid">
+
+                <div class="form-field full">
+                    <label>Languages</label>
+                    <input id="skillsLanguages">
+                </div>
+
+                <div class="form-field full">
+                    <label>Frameworks & Libraries</label>
+                    <input id="skillsFrameworks">
+                </div>
+
+                <div class="form-field full">
+                    <label>Databases & Caching</label>
+                    <input id="skillsDatabases">
+                </div>
+
+                <div class="form-field full">
+                    <label>DevOps & Infrastructure</label>
+                    <input id="skillsDevops">
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- EXPERIENCE -->
+
+        <section class="editor-section">
+
+            <div class="editor-section-header">
+
+                <div>
+                    <h3>Experience</h3>
+                    <p>Add, edit or remove your work experience.</p>
+                </div>
+
+                <button
+                    type="button"
+                    class="add-button"
+                    onclick="addExperience()"
+                >
+                    + Add Experience
+                </button>
+
+            </div>
+
+            <div id="experienceEditor"></div>
+
+        </section>
+
+
+        <!-- EDUCATION -->
+
+        <section class="editor-section">
+
+            <div class="editor-section-header">
+
+                <div>
+                    <h3>Education</h3>
+                    <p>Add or update your education.</p>
+                </div>
+
+                <button
+                    type="button"
+                    class="add-button"
+                    onclick="addEducation()"
+                >
+                    + Add Education
+                </button>
+
+            </div>
+
+            <div id="educationEditor"></div>
+
+        </section>
+
+
+        <!-- PROJECTS -->
+
+        <section class="editor-section">
+
+            <div class="editor-section-header">
+
+                <div>
+                    <h3>Projects</h3>
+                    <p>Add, edit or remove projects from your resume.</p>
+                </div>
+
+                <button
+                    type="button"
+                    class="add-button"
+                    onclick="addProject()"
+                >
+                    + Add Project
+                </button>
+
+            </div>
+
+            <div id="projectsEditor"></div>
+
+        </section>
+
+
+        <!-- ACTIONS -->
+
+        <div class="modal-actions">
+
+            <button
+                id="cancelPersonalButton"
+                class="secondary-button"
+            >
+                Cancel
+            </button>
+
+            <button
+                id="savePersonalButton"
+                class="primary-button"
+            >
+                Save All Changes
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const STORAGE_PERSONAL_DATA = "resume_personal_data";
+const STORAGE_ENCRYPTED_KEY = "resume_encrypted_api_key";
+
+let aiServices = [];
+
+
+// --------------------------------------------------
+// Default personal data
+// --------------------------------------------------
+
+const defaultPersonalData = {
+    profile: {
+        name: "",
+        designation: ""
+    },
+
+    contact: {
+        phone: "",
+        email: "",
+        github: "",
+        linkedin: "",
+        website: "",
+        location: ""
+    },
+
+    summary:
+        "",
+
+    skills: {
+        languages: [
+        ],
+
+        frameworks_libraries: [
+        ],
+
+        databases_caching: [
+        ],
+
+        devops_infrastructure: [
+        ]
+    },
+
+    experience: [
+    ],
+
+    education: [
+    ],
+
+    projects: [
+    ]
+};
+
+
+// --------------------------------------------------
+// Local storage
+// --------------------------------------------------
+
+function loadPersonalData() {
+    const stored = localStorage.getItem(STORAGE_PERSONAL_DATA);
+    let data;
+
+    if (!stored) {
+        data = structuredClone(defaultPersonalData);
+    } else {
+        try {
+            data = JSON.parse(stored);
+        } catch (error) {
+            console.error("Invalid saved resume data:", error);
+            data = structuredClone(defaultPersonalData);
+        }
+    }
+
+    return normalizePersonalData(data);
+}
+
+
+function normalizePersonalData(data) {
+    const base = structuredClone(defaultPersonalData);
+    const value = data && typeof data === "object" ? data : {};
+
+    return {
+        ...base,
+        ...value,
+        profile: { ...base.profile, ...(value.profile || {}) },
+        contact: { ...base.contact, ...(value.contact || {}) },
+        skills: { ...base.skills, ...(value.skills || {}) },
+        experience: Array.isArray(value.experience) ? value.experience.map(item => ({
+            company: item?.company || "",
+            type: item?.type || "",
+            date: item?.date || "",
+            role: item?.role || "",
+            highlights: Array.isArray(item?.highlights) ? item.highlights.map(String) : [""]
+        })) : [],
+        education: Array.isArray(value.education) ? value.education.map(item => ({
+            degree: item?.degree || "",
+            institution: item?.institution || "",
+            university: item?.university || "",
+            period: item?.period || ""
+        })) : [],
+        projects: Array.isArray(value.projects) ? value.projects.map(item => ({
+            name: item?.name || "",
+            type: item?.type || "",
+            highlights: Array.isArray(item?.highlights) ? item.highlights.map(String) : [""]
+        })) : []
+    };
+}
+
+function savePersonalData(data) {
+
+    localStorage.setItem(
+        STORAGE_PERSONAL_DATA,
+        JSON.stringify(data)
+    );
+
+    renderPersonalData();
+}
+
+
+// --------------------------------------------------
+// Personal data display
+// --------------------------------------------------
+
+function renderPersonalData() {
+
+    const data = loadPersonalData();
+
+    const container =
+        document.getElementById("personalDataContainer");
+
+    container.innerHTML = `
+
+        <div class="personal-preview">
+
+            <strong>
+                ${escapeHTML(data.profile.name)}
+            </strong>
+
+            <span>
+                ${escapeHTML(data.profile.designation)}
+            </span>
+
+        </div>
+
+        <div class="personal-item">
+            <span>Email</span>
+            <strong>${escapeHTML(data.contact.email)}</strong>
+        </div>
+
+        <div class="personal-item">
+            <span>Phone</span>
+            <strong>${escapeHTML(data.contact.phone)}</strong>
+        </div>
+
+        <div class="personal-item">
+            <span>Location</span>
+            <strong>${escapeHTML(data.contact.location)}</strong>
+        </div>
+
+        <div class="personal-item">
+            <span>Skills</span>
+            <strong>
+                ${escapeHTML(
+                    data.skills.languages.join(", ")
+                )}
+            </strong>
+        </div>
+
+    `;
+}
+
+
+// --------------------------------------------------
+// Personal data modal
+// --------------------------------------------------
+
+function openPersonalModal() {
+
+    const data = loadPersonalData();
+
+    document.getElementById("profileName").value =
+        data.profile.name || "";
+
+    document.getElementById("profileDesignation").value =
+        data.profile.designation || "";
+
+    document.getElementById("contactPhone").value =
+        data.contact.phone || "";
+
+    document.getElementById("contactEmail").value =
+        data.contact.email || "";
+
+    document.getElementById("contactGithub").value =
+        data.contact.github || "";
+
+    document.getElementById("contactLinkedin").value =
+        data.contact.linkedin || "";
+
+    document.getElementById("contactWebsite").value =
+        data.contact.website || "";
+
+    document.getElementById("contactLocation").value =
+        data.contact.location || "";
+
+    document.getElementById("summary").value =
+        data.summary || "";
+
+    document.getElementById("skillsLanguages").value =
+        data.skills.languages.join(", ");
+
+    document.getElementById("skillsFrameworks").value =
+        data.skills.frameworks_libraries.join(", ");
+
+    document.getElementById("skillsDatabases").value =
+        data.skills.databases_caching.join(", ");
+
+    document.getElementById("skillsDevops").value =
+        data.skills.devops_infrastructure.join(", ");
+
+    renderExperienceEditor();
+    renderEducationEditor();
+    renderProjectsEditor();
+
+    document
+        .getElementById("personalModal")
+        .classList.remove("hidden");
+}
+
+// --------------------------------------------------
+// Experience editor
+// --------------------------------------------------
+
+function renderExperienceEditor() {
+
+    const data = loadPersonalData();
+
+    const container =
+        document.getElementById("experienceEditor");
+
+    container.innerHTML = "";
+
+    data.experience.forEach((experience, index) => {
+
+        const card =
+            document.createElement("div");
+
+        card.className = "resume-editor-card";
+
+        card.innerHTML = `
+
+            <div class="resume-editor-card-header">
+
+                <div>
+                    <strong>
+                        ${escapeHTML(
+                            experience.role || "New Experience"
+                        )}
+                    </strong>
+
+                    <span>
+                        ${escapeHTML(
+                            experience.company || "Company"
+                        )}
+                    </span>
+                </div>
+
+                <button
+                    type="button"
+                    class="delete-button"
+                    onclick="deleteExperience(${index})"
+                >
+                    Delete
+                </button>
+
+            </div>
+
+
+            <div class="form-grid">
+
+                <div class="form-field">
+                    <label>Company</label>
+
+                    <input
+                        data-experience="${index}"
+                        data-field="company"
+                        value="${escapeAttribute(
+                            experience.company
+                        )}"
+                    >
+                </div>
+
+
+                <div class="form-field">
+                    <label>Role</label>
+
+                    <input
+                        data-experience="${index}"
+                        data-field="role"
+                        value="${escapeAttribute(
+                            experience.role
+                        )}"
+                    >
+                </div>
+
+
+                <div class="form-field">
+                    <label>Type</label>
+
+                    <input
+                        data-experience="${index}"
+                        data-field="type"
+                        placeholder="Full-time / Internship / Freelance"
+                        value="${escapeAttribute(
+                            experience.type
+                        )}"
+                    >
+                </div>
+
+
+                <div class="form-field">
+                    <label>Date</label>
+
+                    <input
+                        data-experience="${index}"
+                        data-field="date"
+                        placeholder="May 2024 - August 2024"
+                        value="${escapeAttribute(
+                            experience.date
+                        )}"
+                    >
+                </div>
+
+
+                <div class="form-field full">
+
+                    <label>Highlights</label>
+
+                    <div
+                        id="experienceHighlights-${index}"
+                        class="highlights-editor"
+                    ></div>
+
+                    <button
+                        type="button"
+                        class="small-add-button"
+                        onclick="addExperienceHighlight(${index})"
+                    >
+                        + Add Highlight
+                    </button>
+
+                </div>
+
+            </div>
+        `;
+
+        container.appendChild(card);
+
+        renderExperienceHighlights(
+            index,
+            experience.highlights
+        );
+    });
+}
+
+
+function renderExperienceHighlights(
+    experienceIndex,
+    highlights
+) {
+
+    const container =
+        document.getElementById(
+            `experienceHighlights-${experienceIndex}`
+        );
+
+    if (!container) {
+        return;
+    }
+
+    container.innerHTML = "";
+
+    highlights.forEach((highlight, highlightIndex) => {
+
+        const row =
+            document.createElement("div");
+
+        row.className = "highlight-row";
+
+        row.innerHTML = `
+
+            <textarea
+                data-experience-highlight="${experienceIndex}"
+                data-highlight="${highlightIndex}"
+            >${escapeHTML(highlight)}</textarea>
+
+            <button
+                type="button"
+                class="remove-highlight-button"
+                onclick="
+                    deleteExperienceHighlight(
+                        ${experienceIndex},
+                        ${highlightIndex}
+                    )
+                "
+            >
+                ×
+            </button>
+        `;
+
+        container.appendChild(row);
+    });
+}
+
+
+function addExperience() {
+
+    const data = syncFormToStorage();
+
+    data.experience.push({
+        company: "",
+        type: "",
+        date: "",
+        role: "",
+        highlights: [""]
+    });
+
+    savePersonalData(data);
+
+    renderExperienceEditor();
+}
+
+
+function deleteExperience(index) {
+
+    syncFormToStorage();
+
+    if (
+        !confirm(
+            "Delete this experience?"
+        )
+    ) {
+        return;
+    }
+
+    const data = loadPersonalData();
+
+    data.experience.splice(index, 1);
+
+    savePersonalData(data);
+
+    renderExperienceEditor();
+}
+
+
+function addExperienceHighlight(index) {
+
+    const data = syncFormToStorage();
+
+    data.experience[index].highlights.push("");
+
+    savePersonalData(data);
+
+    renderExperienceEditor();
+}
+
+
+function deleteExperienceHighlight(
+    experienceIndex,
+    highlightIndex
+) {
+
+    const data = syncFormToStorage();
+
+    data.experience[
+        experienceIndex
+    ].highlights.splice(
+        highlightIndex,
+        1
+    );
+
+    savePersonalData(data);
+
+    renderExperienceEditor();
+}
+
+// --------------------------------------------------
+// Education editor
+// --------------------------------------------------
+
+function renderEducationEditor() {
+
+    const data = loadPersonalData();
+
+    const container =
+        document.getElementById("educationEditor");
+
+    container.innerHTML = "";
+
+    data.education.forEach((education, index) => {
+
+        const card =
+            document.createElement("div");
+
+        card.className = "resume-editor-card";
+
+        card.innerHTML = `
+
+            <div class="resume-editor-card-header">
+
+                <div>
+
+                    <strong>
+                        ${escapeHTML(
+                            education.degree ||
+                            "New Education"
+                        )}
+                    </strong>
+
+                    <span>
+                        ${escapeHTML(
+                            education.institution ||
+                            "Institution"
+                        )}
+                    </span>
+
+                </div>
+
+                <button
+                    type="button"
+                    class="delete-button"
+                    onclick="deleteEducation(${index})"
+                >
+                    Delete
+                </button>
+
+            </div>
+
+
+            <div class="form-grid">
+
+                <div class="form-field">
+                    <label>Degree</label>
+
+                    <input
+                        data-education="${index}"
+                        data-field="degree"
+                        value="${escapeAttribute(
+                            education.degree
+                        )}"
+                    >
+                </div>
+
+
+                <div class="form-field">
+                    <label>Institution</label>
+
+                    <input
+                        data-education="${index}"
+                        data-field="institution"
+                        value="${escapeAttribute(
+                            education.institution
+                        )}"
+                    >
+                </div>
+
+
+                <div class="form-field">
+                    <label>University</label>
+
+                    <input
+                        data-education="${index}"
+                        data-field="university"
+                        value="${escapeAttribute(
+                            education.university
+                        )}"
+                    >
+                </div>
+
+
+                <div class="form-field">
+                    <label>Period</label>
+
+                    <input
+                        data-education="${index}"
+                        data-field="period"
+                        placeholder="2024 - 2026"
+                        value="${escapeAttribute(
+                            education.period
+                        )}"
+                    >
+                </div>
+
+            </div>
+        `;
+
+        container.appendChild(card);
+    });
+}
+
+
+function addEducation() {
+
+    const data = syncFormToStorage();
+
+    data.education.push({
+        degree: "",
+        institution: "",
+        university: "",
+        period: ""
+    });
+
+    savePersonalData(data);
+
+    renderEducationEditor();
+}
+
+
+function deleteEducation(index) {
+
+    syncFormToStorage();
+
+    if (
+        !confirm(
+            "Delete this education entry?"
+        )
+    ) {
+        return;
+    }
+
+    const data = loadPersonalData();
+
+    data.education.splice(index, 1);
+
+    savePersonalData(data);
+
+    renderEducationEditor();
+}
+
+// --------------------------------------------------
+// Project editor
+// --------------------------------------------------
+
+function renderProjectsEditor() {
+
+    const data = loadPersonalData();
+
+    const container =
+        document.getElementById("projectsEditor");
+
+    container.innerHTML = "";
+
+    data.projects.forEach((project, index) => {
+
+        const card =
+            document.createElement("div");
+
+        card.className = "resume-editor-card";
+
+        card.innerHTML = `
+
+            <div class="resume-editor-card-header">
+
+                <div>
+
+                    <strong>
+                        ${escapeHTML(
+                            project.name ||
+                            "New Project"
+                        )}
+                    </strong>
+
+                    <span>
+                        ${escapeHTML(
+                            project.type ||
+                            "Project"
+                        )}
+                    </span>
+
+                </div>
+
+                <button
+                    type="button"
+                    class="delete-button"
+                    onclick="deleteProject(${index})"
+                >
+                    Delete
+                </button>
+
+            </div>
+
+
+            <div class="form-grid">
+
+                <div class="form-field">
+
+                    <label>Project Name</label>
+
+                    <input
+                        data-project="${index}"
+                        data-field="name"
+                        value="${escapeAttribute(
+                            project.name
+                        )}"
+                    >
+
+                </div>
+
+
+                <div class="form-field">
+
+                    <label>Type</label>
+
+                    <input
+                        data-project="${index}"
+                        data-field="type"
+                        placeholder="SaaS / Open Source / Freelance"
+                        value="${escapeAttribute(
+                            project.type
+                        )}"
+                    >
+
+                </div>
+
+
+                <div class="form-field full">
+
+                    <label>Highlights</label>
+
+                    <div
+                        id="projectHighlights-${index}"
+                        class="highlights-editor"
+                    ></div>
+
+                    <button
+                        type="button"
+                        class="small-add-button"
+                        onclick="addProjectHighlight(${index})"
+                    >
+                        + Add Highlight
+                    </button>
+
+                </div>
+
+            </div>
+        `;
+
+        container.appendChild(card);
+
+        renderProjectHighlights(
+            index,
+            project.highlights
+        );
+    });
+}
+
+
+function renderProjectHighlights(
+    projectIndex,
+    highlights
+) {
+
+    const container =
+        document.getElementById(
+            `projectHighlights-${projectIndex}`
+        );
+
+    if (!container) {
+        return;
+    }
+
+    container.innerHTML = "";
+
+    highlights.forEach((highlight, highlightIndex) => {
+
+        const row =
+            document.createElement("div");
+
+        row.className = "highlight-row";
+
+        row.innerHTML = `
+
+            <textarea
+                data-project-highlight="${projectIndex}"
+                data-highlight="${highlightIndex}"
+            >${escapeHTML(highlight)}</textarea>
+
+            <button
+                type="button"
+                class="remove-highlight-button"
+                onclick="
+                    deleteProjectHighlight(
+                        ${projectIndex},
+                        ${highlightIndex}
+                    )
+                "
+            >
+                ×
+            </button>
+        `;
+
+        container.appendChild(row);
+    });
+}
+
+
+function addProject() {
+
+    const data = syncFormToStorage();
+
+    data.projects.push({
+        name: "",
+        type: "",
+        highlights: [""]
+    });
+
+    savePersonalData(data);
+
+    renderProjectsEditor();
+}
+
+
+function deleteProject(index) {
+
+    syncFormToStorage();
+
+    if (
+        !confirm(
+            "Delete this project?"
+        )
+    ) {
+        return;
+    }
+
+    const data = loadPersonalData();
+
+    data.projects.splice(index, 1);
+
+    savePersonalData(data);
+
+    renderProjectsEditor();
+}
+
+
+function addProjectHighlight(index) {
+
+    const data = syncFormToStorage();
+
+    data.projects[index].highlights.push("");
+
+    savePersonalData(data);
+
+    renderProjectsEditor();
+}
+
+
+function deleteProjectHighlight(
+    projectIndex,
+    highlightIndex
+) {
+
+    const data = syncFormToStorage();
+
+    data.projects[
+        projectIndex
+    ].highlights.splice(
+        highlightIndex,
+        1
+    );
+
+    savePersonalData(data);
+
+    renderProjectsEditor();
+}
+
+function collectDynamicEditors() {
+
+    const data = loadPersonalData();
+
+
+    // -------------------------------
+    // Experience
+    // -------------------------------
+
+    document
+        .querySelectorAll(
+            "[data-experience]"
+        )
+        .forEach(input => {
+
+            const index =
+                Number(
+                    input.dataset.experience
+                );
+
+            const field =
+                input.dataset.field;
+
+            if (
+                data.experience[index]
+            ) {
+                data.experience[index][field] =
+                    input.value;
+            }
+        });
+
+
+    document
+        .querySelectorAll(
+            "[data-experience-highlight]"
+        )
+        .forEach(input => {
+
+            const experienceIndex =
+                Number(
+                    input.dataset.experienceHighlight
+                );
+
+            const highlightIndex =
+                Number(
+                    input.dataset.highlight
+                );
+
+            if (
+                data.experience[
+                    experienceIndex
+                ]
+            ) {
+
+                data.experience[
+                    experienceIndex
+                ].highlights[
+                    highlightIndex
+                ] = input.value;
+            }
+        });
+
+
+    // -------------------------------
+    // Education
+    // -------------------------------
+
+    document
+        .querySelectorAll(
+            "[data-education]"
+        )
+        .forEach(input => {
+
+            const index =
+                Number(
+                    input.dataset.education
+                );
+
+            const field =
+                input.dataset.field;
+
+            if (
+                data.education[index]
+            ) {
+
+                data.education[index][field] =
+                    input.value;
+            }
+        });
+
+
+    // -------------------------------
+    // Projects
+    // -------------------------------
+
+    document
+        .querySelectorAll(
+            "[data-project]"
+        )
+        .forEach(input => {
+
+            const index =
+                Number(
+                    input.dataset.project
+                );
+
+            const field =
+                input.dataset.field;
+
+            if (
+                data.projects[index]
+            ) {
+
+                data.projects[index][field] =
+                    input.value;
+            }
+        });
+
+
+    document
+        .querySelectorAll(
+            "[data-project-highlight]"
+        )
+        .forEach(input => {
+
+            const projectIndex =
+                Number(
+                    input.dataset.projectHighlight
+                );
+
+            const highlightIndex =
+                Number(
+                    input.dataset.highlight
+                );
+
+            if (
+                data.projects[
+                    projectIndex
+                ]
+            ) {
+
+                data.projects[
+                    projectIndex
+                ].highlights[
+                    highlightIndex
+                ] = input.value;
+            }
+        });
+
+
+    return data;
+}
+
+
+function syncFormToStorage() {
+    const modal = document.getElementById("personalModal");
+    if (!modal || modal.classList.contains("hidden")) return loadPersonalData();
+    const data = collectDynamicEditors();
+
+    data.profile.name = document.getElementById("profileName").value.trim();
+    data.profile.designation = document.getElementById("profileDesignation").value.trim();
+    data.contact.phone = document.getElementById("contactPhone").value.trim();
+    data.contact.email = document.getElementById("contactEmail").value.trim();
+    data.contact.github = document.getElementById("contactGithub").value.trim();
+    data.contact.linkedin = document.getElementById("contactLinkedin").value.trim();
+    data.contact.website = document.getElementById("contactWebsite").value.trim();
+    data.contact.location = document.getElementById("contactLocation").value.trim();
+    data.summary = document.getElementById("summary").value.trim();
+    data.skills.languages = getArray(document.getElementById("skillsLanguages").value);
+    data.skills.frameworks_libraries = getArray(document.getElementById("skillsFrameworks").value);
+    data.skills.databases_caching = getArray(document.getElementById("skillsDatabases").value);
+    data.skills.devops_infrastructure = getArray(document.getElementById("skillsDevops").value);
+
+    savePersonalData(data);
+    return data;
+}
+
+function closePersonalModal() {
+
+    document
+        .getElementById("personalModal")
+        .classList.add("hidden");
+}
+
+
+function getArray(value) {
+
+    return value
+        .split(",")
+        .map(item => item.trim())
+        .filter(Boolean);
+}
+
+
+function savePersonalDataFromForm() {
+
+    const data = collectDynamicEditors();
+
+
+    // --------------------------------
+    // Profile
+    // --------------------------------
+
+    data.profile.name =
+        document
+            .getElementById("profileName")
+            .value
+            .trim();
+
+    data.profile.designation =
+        document
+            .getElementById("profileDesignation")
+            .value
+            .trim();
+
+
+    // --------------------------------
+    // Contact
+    // --------------------------------
+
+    data.contact.phone =
+        document
+            .getElementById("contactPhone")
+            .value
+            .trim();
+
+    data.contact.email =
+        document
+            .getElementById("contactEmail")
+            .value
+            .trim();
+
+    data.contact.github =
+        document
+            .getElementById("contactGithub")
+            .value
+            .trim();
+
+    data.contact.linkedin =
+        document
+            .getElementById("contactLinkedin")
+            .value
+            .trim();
+
+    data.contact.website =
+        document
+            .getElementById("contactWebsite")
+            .value
+            .trim();
+
+    data.contact.location =
+        document
+            .getElementById("contactLocation")
+            .value
+            .trim();
+
+
+    // --------------------------------
+    // Summary
+    // --------------------------------
+
+    data.summary =
+        document
+            .getElementById("summary")
+            .value
+            .trim();
+
+
+    // --------------------------------
+    // Skills
+    // --------------------------------
+
+    data.skills.languages =
+        getArray(
+            document
+                .getElementById("skillsLanguages")
+                .value
+        );
+
+    data.skills.frameworks_libraries =
+        getArray(
+            document
+                .getElementById("skillsFrameworks")
+                .value
+        );
+
+    data.skills.databases_caching =
+        getArray(
+            document
+                .getElementById("skillsDatabases")
+                .value
+        );
+
+    data.skills.devops_infrastructure =
+        getArray(
+            document
+                .getElementById("skillsDevops")
+                .value
+        );
+
+
+    // --------------------------------
+    // Save
+    // --------------------------------
+
+    savePersonalData(data);
+
+    closePersonalModal();
+
+    renderPersonalData();
+}
+
+// --------------------------------------------------
+// AI services
+// --------------------------------------------------
+
+async function loadAIServices() {
+
+    const serviceSelect =
+        document.getElementById("aiService");
+
+    try {
+
+        const response =
+            await fetch("/ai-services");
+
+        if (!response.ok) {
+            throw new Error("Failed to load AI services");
+        }
+
+        aiServices = await response.json();
+
+        serviceSelect.innerHTML =
+            `<option value="">Select AI service</option>`;
+
+        aiServices.forEach((service, index) => {
+
+            const option =
+                document.createElement("option");
+
+            option.value = index;
+            option.textContent = service.service;
+
+            serviceSelect.appendChild(option);
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        serviceSelect.innerHTML =
+            `<option value="">Failed to load services</option>`;
+    }
+}
+
+
+function updateModels() {
+
+    const serviceSelect =
+        document.getElementById("aiService");
+
+    const modelSelect =
+        document.getElementById("aiModel");
+
+    const index = serviceSelect.value;
+
+    modelSelect.innerHTML =
+        `<option value="">Select model</option>`;
+
+    if (index === "") {
+
+        modelSelect.disabled = true;
+
+        return;
+    }
+
+    const service =
+        aiServices[index];
+
+    service.models.forEach(model => {
+
+        const option =
+            document.createElement("option");
+
+        option.value = model;
+        option.textContent = model;
+
+        modelSelect.appendChild(option);
+    });
+
+    modelSelect.disabled = false;
+}
+
+
+// --------------------------------------------------
+// API token
+// --------------------------------------------------
+
+function loadEncryptedKey() {
+
+    return localStorage.getItem(
+        STORAGE_ENCRYPTED_KEY
+    );
+}
+
+
+function updateTokenStatus() {
+
+    const encryptedKey =
+        loadEncryptedKey();
+
+    const status =
+        document.getElementById("tokenStatus");
+
+    if (encryptedKey) {
+
+        status.textContent =
+            "✓ API token saved";
+
+        status.className =
+            "small-status success";
+
+    } else {
+
+        status.textContent =
+            "No API token saved";
+
+        status.className =
+            "small-status";
+    }
+}
+
+
+async function saveAPIKey() {
+
+    const input =
+        document.getElementById("apiKey");
+
+    const button =
+        document.getElementById("saveTokenButton");
+
+    const status =
+        document.getElementById("tokenStatus");
+
+    const apiKey =
+        input.value.trim();
+
+    if (!apiKey) {
+
+        status.textContent =
+            "Enter an API key";
+
+        status.className =
+            "small-status error";
+
+        return;
+    }
+
+    button.disabled = true;
+    button.textContent = "Encrypting...";
+
+    try {
+
+        const response =
+            await fetch(
+                "/encrypt-apikey",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        api_key: apiKey
+                    })
+                }
+            );
+
+        if (!response.ok) {
+
+            const message =
+                await response.text();
+
+            throw new Error(message);
+        }
+
+        const data =
+            await response.json();
+
+        localStorage.setItem(
+            STORAGE_ENCRYPTED_KEY,
+            data.encrypted_key
+        );
+
+        input.value = "";
+
+        status.textContent =
+            "✓ API token encrypted and saved";
+
+        status.className =
+            "small-status success";
+
+    } catch (error) {
+
+        console.error(error);
+
+        status.textContent =
+            "Failed to save API token";
+
+        status.className =
+            "small-status error";
+
+    } finally {
+
+        button.disabled = false;
+        button.textContent = "Save";
+    }
+}
+
+
+// --------------------------------------------------
+// Generate resume
+// --------------------------------------------------
+
+async function generateResume() {
+
+    const jobDescription =
+        document
+            .getElementById("jobDescription")
+            .value
+            .trim();
+
+    const serviceSelect =
+        document.getElementById("aiService");
+
+    const modelSelect =
+        document.getElementById("aiModel");
+
+    const status =
+        document.getElementById("status");
+
+    const button =
+        document.getElementById("generateButton");
+
+    const encryptedKey =
+        loadEncryptedKey();
+
+    if (!jobDescription) {
+
+        status.textContent =
+            "Please enter a job description.";
+
+        status.className =
+            "status error";
+
+        return;
+    }
+
+    if (serviceSelect.value === "") {
+
+        status.textContent =
+            "Please select an AI service.";
+
+        status.className =
+            "status error";
+
+        return;
+    }
+
+    if (modelSelect.value === "") {
+
+        status.textContent =
+            "Please select a model.";
+
+        status.className =
+            "status error";
+
+        return;
+    }
+
+    if (!encryptedKey) {
+
+        status.textContent =
+            "Please save your API token first.";
+
+        status.className =
+            "status error";
+
+        return;
+    }
+
+    const service =
+        aiServices[serviceSelect.value];
+
+    const format =
+        document.querySelector(
+            'input[name="format"]:checked'
+        ).value;
+
+    const personalData = syncFormToStorage();
+
+    const requestBody = {
+
+        job_description:
+            jobDescription,
+
+        personal_data:
+            personalData,
+
+        format:
+            format,
+
+        api_url:
+            service.api_url,
+
+        ai_model:
+            modelSelect.value,
+
+        encrypted_key:
+            encryptedKey
+    };
+
+    button.disabled = true;
+    button.textContent = "Generating...";
+
+    status.textContent =
+        "Generating your tailored resume...";
+
+    status.className =
+        "status loading";
+
+    try {
+
+        const response =
+            await fetch(
+                "/generate-resume",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:
+                        JSON.stringify(requestBody)
+                }
+            );
+
+        if (!response.ok) {
+
+            const message =
+                await response.text();
+
+            throw new Error(message);
+        }
+
+        const blob =
+            await response.blob();
+
+        const filename =
+            getFilenameFromResponse(
+                response,
+                personalData.profile.name,
+                format
+            );
+
+        const url =
+            window.URL.createObjectURL(blob);
+
+        const link =
+            document.createElement("a");
+
+        link.href = url;
+        link.download = filename;
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        link.remove();
+
+        window.URL.revokeObjectURL(url);
+
+        status.textContent =
+            "✓ Resume generated successfully.";
+
+        status.className =
+            "status success";
+
+    } catch (error) {
+
+        console.error(error);
+
+        status.textContent =
+            error.message ||
+            "Failed to generate resume.";
+
+        status.className =
+            "status error";
+
+    } finally {
+
+        button.disabled = false;
+        button.textContent = "Generate Resume";
+    }
+}
+
+
+function getFilenameFromResponse(
+    response,
+    name,
+    format
+) {
+
+    const disposition =
+        response.headers.get(
+            "Content-Disposition"
+        );
+
+    if (disposition) {
+
+        const match =
+            disposition.match(
+                /filename="?([^"]+)"?/i
+            );
+
+        if (match) {
+            return match[1];
+        }
+    }
+
+    const safeName =
+        name
+            .replace(/[^a-z0-9]/gi, "_")
+            .replace(/_+/g, "_");
+
+    return `${safeName}_resume.${format}`;
+}
+
+
+// --------------------------------------------------
+// Utility
+// --------------------------------------------------
+
+function escapeHTML(value) {
+
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+function escapeAttribute(value) {
+    return escapeHTML(value);
+}
+
+
+// --------------------------------------------------
+// Events
+// --------------------------------------------------
+
+document
+    .getElementById("aiService")
+    .addEventListener(
+        "change",
+        updateModels
+    );
+
+document
+    .getElementById("saveTokenButton")
+    .addEventListener(
+        "click",
+        saveAPIKey
+    );
+
+document
+    .getElementById("generateButton")
+    .addEventListener(
+        "click",
+        generateResume
+    );
+
+document
+    .getElementById("editPersonalButton")
+    .addEventListener(
+        "click",
+        openPersonalModal
+    );
+
+document
+    .getElementById("closeModalButton")
+    .addEventListener(
+        "click",
+        closePersonalModal
+    );
+
+document
+    .getElementById("cancelPersonalButton")
+    .addEventListener(
+        "click",
+        closePersonalModal
+    );
+
+document
+    .getElementById("savePersonalButton")
+    .addEventListener(
+        "click",
+        savePersonalDataFromForm
+    );
+
+
+// --------------------------------------------------
+// Initialisation
+// --------------------------------------------------
+
+renderPersonalData();
+
+const personalModal = document.getElementById("personalModal");
+personalModal.addEventListener("input", () => {
+    syncFormToStorage();
+});
+
+updateTokenStatus();
+
+loadAIServices();
+
+</script>
+
+</body>
+</html>
